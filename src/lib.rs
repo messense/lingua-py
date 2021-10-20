@@ -1,5 +1,3 @@
-use std::collections::HashSet;
-
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
@@ -23,7 +21,7 @@ impl Language {
     }
 
     #[staticmethod]
-    fn all() -> HashSet<Self> {
+    fn all() -> Vec<Self> {
         lingua::Language::all()
             .into_iter()
             .map(|inner| Self { inner })
@@ -31,7 +29,7 @@ impl Language {
     }
 
     #[staticmethod]
-    fn all_spoken_ones() -> HashSet<Self> {
+    fn all_spoken_ones() -> Vec<Self> {
         lingua::Language::all_spoken_ones()
             .into_iter()
             .map(|inner| Self { inner })
@@ -39,7 +37,7 @@ impl Language {
     }
 
     #[staticmethod]
-    fn all_with_arabic_script() -> HashSet<Self> {
+    fn all_with_arabic_script() -> Vec<Self> {
         lingua::Language::all_with_arabic_script()
             .into_iter()
             .map(|inner| Self { inner })
@@ -47,7 +45,7 @@ impl Language {
     }
 
     #[staticmethod]
-    fn all_with_cyrillic_script() -> HashSet<Self> {
+    fn all_with_cyrillic_script() -> Vec<Self> {
         lingua::Language::all_with_cyrillic_script()
             .into_iter()
             .map(|inner| Self { inner })
@@ -55,7 +53,7 @@ impl Language {
     }
 
     #[staticmethod]
-    fn all_with_devanagari_script() -> HashSet<Self> {
+    fn all_with_devanagari_script() -> Vec<Self> {
         lingua::Language::all_with_devanagari_script()
             .into_iter()
             .map(|inner| Self { inner })
@@ -63,7 +61,7 @@ impl Language {
     }
 
     #[staticmethod]
-    fn all_with_latin_script() -> HashSet<Self> {
+    fn all_with_latin_script() -> Vec<Self> {
         lingua::Language::all_with_latin_script()
             .into_iter()
             .map(|inner| Self { inner })
