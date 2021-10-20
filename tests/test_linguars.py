@@ -11,6 +11,14 @@ def test_detect():
     detector = linguars.LanguageDetector()
     assert str(detector.detect("中文")) == "chinese"
 
+    detector = linguars.LanguageDetector(languages=["chinese", "english"])
+    assert str(detector.detect("中文")) == "chinese"
+
+    detector = linguars.LanguageDetector(
+        languages=list(linguars.Language.all_spoken_ones())
+    )
+    assert str(detector.detect("中文")) == "chinese"
+
 
 def test_confidence():
     detector = linguars.LanguageDetector()

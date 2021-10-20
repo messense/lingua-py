@@ -1,4 +1,4 @@
-from typing import List, Optional, Set
+from typing import List, Optional, Set, Union
 
 class Language:
     def iso_code_639_1(self) -> str: ...
@@ -19,7 +19,7 @@ class Language:
 class LanguageDetector:
     def __init__(
         self,
-        languages: List[str] = [],
+        languages: List[Union[Language, str]] = [],
         preload: bool = True,
         minimum_relative_distance: float = 0.0,
     ): ...

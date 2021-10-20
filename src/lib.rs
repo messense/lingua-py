@@ -5,7 +5,7 @@ use pyo3::prelude::*;
 use pyo3::PyObjectProtocol;
 
 #[pyclass]
-#[derive(PartialEq, Eq, Hash)]
+#[derive(Clone, PartialEq, Eq, Hash)]
 struct Language {
     inner: lingua::Language,
 }
@@ -87,6 +87,12 @@ struct LanguageDetector {
     inner: lingua::LanguageDetector,
 }
 
+#[derive(FromPyObject)]
+enum LanguageOrString {
+    Typed(Language),
+    Literal(String),
+}
+
 #[pymethods]
 impl LanguageDetector {
     #[new]
@@ -96,7 +102,7 @@ impl LanguageDetector {
         minimum_relative_distance = "0.0"
     )]
     fn new(
-        languages: Vec<String>,
+        languages: Vec<LanguageOrString>,
         preload: bool,
         minimum_relative_distance: f64,
     ) -> PyResult<Self> {
@@ -107,10 +113,13 @@ impl LanguageDetector {
         } else {
             let mut langs = Vec::new();
             for lang in languages {
-                langs.push(
-                    lang.parse::<lingua::Language>()
+                let lang = match lang {
+                    LanguageOrString::Typed(lang) => lang.inner,
+                    LanguageOrString::Literal(lang) => lang
+                        .parse::<lingua::Language>()
                         .map_err(|e| PyValueError::new_err(format!("{}", e)))?,
-                );
+                };
+                langs.push(lang);
             }
             lingua::LanguageDetectorBuilder::from_languages(&langs)
         };
