@@ -19,6 +19,7 @@ jobs:
           toolchain: stable
           profile: minimal
           default: true
+          target: aarch64-apple-darwin
       - name: Build wheels - x86_64
         uses: messense/maturin-action@v1
         with:
@@ -29,14 +30,11 @@ jobs:
           pip install linguars --no-index --find-links dist --force-reinstall
           pip install pytest
           cd tests && pytest -v
-      - name: Build wheels - universal2
+      - name: Build wheels - arm64
         uses: messense/maturin-action@v1
         with:
-          args: --release --universal2 --out dist --no-sdist
-      - name: Install built wheel - universal2
-        run: |
-          pip install linguars --no-index --find-links dist --force-reinstall
-          cd tests && pytest -v
+          target: aarch64
+          args: --release --out dist --no-sdist
       - name: Upload wheels
         uses: actions/upload-artifact@v2
         with:
