@@ -22,42 +22,48 @@ impl Language {
         self.inner.iso_code_639_3().to_string()
     }
 
-    fn all(&self) -> HashSet<Self> {
+    #[staticmethod]
+    fn all() -> HashSet<Self> {
         lingua::Language::all()
             .into_iter()
             .map(|inner| Self { inner })
             .collect()
     }
 
-    fn all_spoken_ones(&self) -> HashSet<Self> {
+    #[staticmethod]
+    fn all_spoken_ones() -> HashSet<Self> {
         lingua::Language::all_spoken_ones()
             .into_iter()
             .map(|inner| Self { inner })
             .collect()
     }
 
-    fn all_with_arabic_script(&self) -> HashSet<Self> {
+    #[staticmethod]
+    fn all_with_arabic_script() -> HashSet<Self> {
         lingua::Language::all_with_arabic_script()
             .into_iter()
             .map(|inner| Self { inner })
             .collect()
     }
 
-    fn all_with_cyrillic_script(&self) -> HashSet<Self> {
+    #[staticmethod]
+    fn all_with_cyrillic_script() -> HashSet<Self> {
         lingua::Language::all_with_cyrillic_script()
             .into_iter()
             .map(|inner| Self { inner })
             .collect()
     }
 
-    fn all_with_devanagari_script(&self) -> HashSet<Self> {
+    #[staticmethod]
+    fn all_with_devanagari_script() -> HashSet<Self> {
         lingua::Language::all_with_devanagari_script()
             .into_iter()
             .map(|inner| Self { inner })
             .collect()
     }
 
-    fn all_with_latin_script(&self) -> HashSet<Self> {
+    #[staticmethod]
+    fn all_with_latin_script() -> HashSet<Self> {
         lingua::Language::all_with_latin_script()
             .into_iter()
             .map(|inner| Self { inner })
