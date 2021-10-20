@@ -18,8 +18,9 @@ pip install linguars
 import linguars
 
 
-print(linguars.detect('我们中出了一个叛徒'))
-print(linguars.confidence('我们中出了一个叛徒'))
+detector = linguars.LanguageDetector()
+print(detector.detect('我们中出了一个叛徒'))
+print(detector.confidence('我们中出了一个叛徒'))
 ```
 
 ## License
