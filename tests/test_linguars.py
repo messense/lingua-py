@@ -2,6 +2,11 @@
 import linguars
 
 
+def test_language():
+    langs = linguars.Language.all()
+    assert len(langs) == 75
+
+
 def test_detect():
     detector = linguars.LanguageDetector()
     assert str(detector.detect("中文")) == "chinese"
