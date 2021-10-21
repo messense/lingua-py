@@ -6,6 +6,10 @@ def test_language():
     langs = linguars.Language.all()
     assert len(langs) == 75
 
+    lang = langs[0]
+    assert lang.iso_code_639_1
+    assert lang.iso_code_639_3
+
 
 def test_detect():
     detector = linguars.LanguageDetector()

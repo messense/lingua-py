@@ -10,14 +10,42 @@ struct Language {
 
 #[pymethods]
 impl Language {
+    #[new]
+    fn new(lang: &str) -> PyResult<Self> {
+        let inner = lang
+            .parse()
+            .map_err(|e| PyValueError::new_err(format!("unknown language: {}", e)))?;
+        Ok(Self { inner })
+    }
+
     /// ISO 639-1 code representation
+    #[getter]
     fn iso_code_639_1(&self) -> String {
         self.inner.iso_code_639_1().to_string()
     }
 
+    #[staticmethod]
+    fn from_iso_code_639_1(iso_code: &str) -> PyResult<Self> {
+        let iso_code = iso_code
+            .parse()
+            .map_err(|e| PyValueError::new_err(format!("unknwon ISO 639-1 code: {}", e)))?;
+        let inner = lingua::Language::from_iso_code_639_1(&iso_code);
+        Ok(Self { inner })
+    }
+
     /// ISO 639-3 code representation
+    #[getter]
     fn iso_code_639_3(&self) -> String {
         self.inner.iso_code_639_3().to_string()
+    }
+
+    #[staticmethod]
+    fn from_iso_code_639_3(iso_code: &str) -> PyResult<Self> {
+        let iso_code = iso_code
+            .parse()
+            .map_err(|e| PyValueError::new_err(format!("unknwon ISO 639-3 code: {}", e)))?;
+        let inner = lingua::Language::from_iso_code_639_3(&iso_code);
+        Ok(Self { inner })
     }
 
     #[staticmethod]
