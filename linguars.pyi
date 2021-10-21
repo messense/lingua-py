@@ -20,7 +20,7 @@ class LanguageDetector:
     def __init__(
         self,
         languages: List[Union[Language, str]] = [],
-        preload: bool = True,
+        preload: bool = False,
         minimum_relative_distance: float = 0.0,
     ): ...
     def detect(self, text: str) -> Optional[Language]: ...
