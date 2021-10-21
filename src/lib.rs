@@ -96,7 +96,7 @@ impl LanguageDetector {
     #[new]
     #[args(
         languages = "Vec::new()",
-        preload = "true",
+        preload = "false",
         minimum_relative_distance = "0.0"
     )]
     fn new(
