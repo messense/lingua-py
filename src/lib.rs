@@ -128,6 +128,7 @@ impl LanguageDetector {
         minimum_relative_distance = "0.0"
     )]
     fn new(
+        py: Python,
         languages: Vec<LanguageOrString>,
         preload: bool,
         minimum_relative_distance: f64,
@@ -153,24 +154,22 @@ impl LanguageDetector {
         if preload {
             builder.with_preloaded_language_models();
         }
-        let inner = builder.build();
+        let inner = py.allow_threads(move || builder.build());
         Ok(Self { inner })
     }
 
     /// Detects the language of given input text.
     /// If the language cannot be reliably detected, None is returned.
     #[pyo3(text_signature = "($self, text)")]
-    fn detect(&self, text: String) -> Option<Language> {
-        self.inner
-            .detect_language_of(text)
+    fn detect(&self, py: Python, text: String) -> Option<Language> {
+        py.allow_threads(move || self.inner.detect_language_of(text))
             .map(|lang| Language { inner: lang })
     }
 
     /// Computes confidence values for each language considered possible for the given input text.
     #[pyo3(text_signature = "($self, text)")]
-    fn confidence(&self, text: String) -> Vec<(Language, f64)> {
-        self.inner
-            .compute_language_confidence_values(text)
+    fn confidence(&self, py: Python, text: String) -> Vec<(Language, f64)> {
+        py.allow_threads(move || self.inner.compute_language_confidence_values(text))
             .into_iter()
             .map(|(lang, conf)| (Language { inner: lang }, conf))
             .collect()
