@@ -1,6 +1,5 @@
 use pyo3::exceptions::PyValueError;
 use pyo3::prelude::*;
-use pyo3::PyObjectProtocol;
 
 #[pyclass]
 #[derive(Clone, PartialEq, Eq, Hash)]
@@ -95,10 +94,7 @@ impl Language {
             .map(|inner| Self { inner })
             .collect()
     }
-}
 
-#[pyproto]
-impl PyObjectProtocol for Language {
     fn __repr__(&self) -> PyResult<String> {
         Ok(format!("{:?}", self.inner).to_lowercase())
     }
