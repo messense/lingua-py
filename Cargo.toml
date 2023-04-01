@@ -14,4 +14,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 lingua = "1.4.0"
-pyo3 = { version = "0.18.1", features = ["abi3-py37", "extension-module"] }
+pyo3 = { version = "0.18.2", features = ["abi3-py37", "extension-module"] }
