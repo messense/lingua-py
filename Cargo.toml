@@ -13,5 +13,5 @@ readme = "README.md"
 crate-type = ["cdylib"]
 
 [dependencies]
-lingua = "1.4.0"
+lingua = "1.5.0"
 pyo3 = { version = "0.19.2", features = ["abi3-py37", "extension-module"] }
