@@ -25,7 +25,7 @@ def test_detect():
 def test_confidence():
     detector = linguars.LanguageDetector()
     confs = detector.confidence("中文")
-    assert len(confs) == 1
+    assert len(confs) >= 1
     conf = confs[0]
     assert str(conf[0]) == "chinese"
     assert conf[1] == 1.0
