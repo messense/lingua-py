@@ -1053,7 +1053,7 @@ dependencies = [
 
 [[package]]
 name = "linguars"
-version = "0.3.2"
+version = "0.4.0"
 dependencies = [
  "lingua",
  "pyo3",
